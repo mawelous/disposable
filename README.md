@@ -8,9 +8,9 @@ List of disposable email services
 * Grunt: tld sorting of JSON db
 * Grunt: compiling into Regex
 * Grunt: build script for language tools
-* language tool for Regex (plain pattern match)
-* language tool for PHP
-* language tool for Node
-* language tool for vanilla JS
-* language tool for jQuery
-* language tool for Ruby (maybe)
+* Language tool for Regex (plain pattern match)
+* Language tool for PHP
+* Language tool for Node
+* Language tool for vanilla JS
+* Language tool for jQuery
+* Language tool for Ruby (maybe)
