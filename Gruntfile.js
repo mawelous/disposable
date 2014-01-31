@@ -9,16 +9,10 @@ module.exports = function( grunt ) {
 		}
 	});
 
-	grunt.registerTask( 'regex', 'Create Regex Pattern', function(){
+	function disposable(tplFile, extension) {
+		var tplFilepath = grunt.config('disposable.tplDir') + tplFile;
 
-	});
-
-	grunt.registerTask( 'php', 'Create PHP Tool', function(){
-		grunt.log.writeln('Creating PHP Tool...');
-
-		var tplFilepath = grunt.config('disposable.tplDir') + 'php.tpl';
-
-		var destFilepath = grunt.config('disposable.dest') + '.php';
+		var destFilepath = grunt.config('disposable.dest') + '.' + extension;
 
 		var tplFile = grunt.file.read(tplFilepath);
 
@@ -31,19 +25,23 @@ module.exports = function( grunt ) {
 		var processedFile = grunt.template.process(tplFile, {data: data});
 
 		grunt.file.write(destFilepath, processedFile);
-	});
+	}
 
-	grunt.registerTask( 'js', 'Create Vanilla Javascript Tool', function(){
-
-	});
-
-	grunt.registerTask( 'node', 'Create Node.js Tool', function(){
+	grunt.registerTask( 'regex', 'Create Regex Pattern', function(){
 
 	});
 
-	grunt.registerTask( 'node', 'Create Node.js Tool', function(){
+	grunt.registerTask( 'php', 'Create PHP Tool', function(){
+		grunt.log.writeln('Creating PHP Tool...');
 
+		disposable('php.tpl', 'php');
 	});
 
-	grunt.registerTask('default', ['php']);
+	grunt.registerTask( 'js', 'Create Javascript Tool', function(){
+		grunt.log.writeln('Creating JS Tool...');
+
+		disposable('js.tpl', 'js');
+	});
+
+	grunt.registerTask('default', ['php', 'js']);
 };
