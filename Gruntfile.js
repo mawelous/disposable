@@ -9,6 +9,24 @@ module.exports = function( grunt ) {
 		}
 	});
 
+	function disposable(tplFile, extension) {
+		var tplFilepath = grunt.config('disposable.tplDir') + tplFile;
+
+		var destFilepath = grunt.config('disposable.dest') + '.' + extension;
+
+		var tplFile = grunt.file.read(tplFilepath);
+
+		var db = grunt.file.readJSON(grunt.config('disposable.db'));
+
+		var data = {
+			db: JSON.stringify(db.hosts)
+		};
+
+		var processedFile = grunt.template.process(tplFile, {data: data});
+
+		grunt.file.write(destFilepath, processedFile);
+	}
+
 	grunt.registerTask( 'regex', 'Create Regex Pattern', function(){
 
 	});
@@ -16,45 +34,13 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'php', 'Create PHP Tool', function(){
 		grunt.log.writeln('Creating PHP Tool...');
 
-		var tplFilepath = grunt.config('disposable.tplDir') + 'php.tpl';
-
-		var destFilepath = grunt.config('disposable.dest') + '.php';
-
-		var tplFile = grunt.file.read(tplFilepath);
-
-		var db = grunt.file.readJSON(grunt.config('disposable.db'));
-
-		var data = {
-			db: JSON.stringify(db.hosts)
-		};
-
-		var processedFile = grunt.template.process(tplFile, {data: data});
-
-		grunt.file.write(destFilepath, processedFile);
+		disposable('php.tpl', 'php');
 	});
 
-	grunt.registerTask( 'js', 'Create Vanilla Javascript Tool', function(){
+	grunt.registerTask( 'js', 'Create Javascript Tool', function(){
 		grunt.log.writeln('Creating JS Tool...');
 
-		var tplFilepath = grunt.config('disposable.tplDir') + 'js.tpl';
-
-		var destFilepath = grunt.config('disposable.dest') + '.js';
-
-		var tplFile = grunt.file.read(tplFilepath);
-
-		var db = grunt.file.readJSON(grunt.config('disposable.db'));
-
-		var data = {
-			db: JSON.stringify(db.hosts)
-		};
-
-		var processedFile = grunt.template.process(tplFile, {data: data});
-
-		grunt.file.write(destFilepath, processedFile);
-	});
-
-	grunt.registerTask( 'node', 'Create Node.js Tool', function(){
-
+		disposable('js.tpl', 'js');
 	});
 
 	grunt.registerTask('default', ['php', 'js']);
